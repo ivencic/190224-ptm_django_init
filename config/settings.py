@@ -48,9 +48,15 @@ INSTALLED_APPS = [
 
     # 3-rd party
     'rest_framework',
+    'django_filters',
+
     # local
     'first_app.apps.FirstAppConfig'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
