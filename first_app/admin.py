@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from first_app.models.choice import STATUS_CHOISES
+from first_app.models.choice import Status
 from first_app.models.task import Task
 from first_app.models.subtask import Subtask
 from first_app.models.category import Category

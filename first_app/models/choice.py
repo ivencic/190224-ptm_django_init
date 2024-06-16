@@ -1,7 +1,7 @@
-STATUS_CHOISES = [
-    ('NEW', 'NEW'),
-    ('IN PROGRESS', 'IN PROGRESS'),
-    ('PENDING', 'PENDING'),
-    ('BLOCKED', 'BLOCKED'),
-    ('DONE', 'DONE'),
-]
+from django.db import models
+
+
+class Status(models.TextChoices):
+    NEW = 'New', 'New'
+    IN_PROGRESS = 'In Progress', 'In Progress'
+    DONE = 'Done', 'Done'
