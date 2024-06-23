@@ -7,3 +7,9 @@ class SubTaskCreateSerializer(serializers.ModelSerializer):
         model = Subtask
         fields = '__all__'
         read_only_fields = ('created_at', )
+
+
+class SubTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subtask
+        fields = '__all__'
