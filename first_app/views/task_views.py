@@ -7,7 +7,7 @@ from django.db import models
 from django.utils.timezone import now
 from first_app.models.task import Task
 from first_app.serializers.task_serializers import TaskSerializer
-from .pagination import TaskPagination
+from first_app.pagination import GlobalPagination
 
 
 class TaskFilter(FilterSet):
@@ -27,7 +27,7 @@ class TaskListCreateView(generics.ListCreateAPIView):
     search_fields = ['title', 'description']
     ordering_fields = ['created_at']
     ordering = ['created_at']
-    pagination_class = TaskPagination
+    pagination_class = GlobalPagination
 
 
 class TaskDetailUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):

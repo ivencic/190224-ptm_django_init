@@ -3,7 +3,7 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from first_app.models.subtask import Subtask
 from first_app.serializers.sub_task_serializers import SubTaskSerializer
-from .pagination import SubTaskPagination
+from first_app.pagination import GlobalPagination
 
 
 class SubTaskListCreateView(generics.ListCreateAPIView):
@@ -14,7 +14,7 @@ class SubTaskListCreateView(generics.ListCreateAPIView):
     search_fields = ['title', 'description']
     ordering_fields = ['created_at']
     ordering = ['created_at']
-    pagination_class = SubTaskPagination
+    pagination_class = GlobalPagination
 
 
 class SubTaskDetailUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
