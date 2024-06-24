@@ -1,9 +1,43 @@
+from rest_framework import generics
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+from first_app.models.subtask import Subtask
+from first_app.serializers.sub_task_serializers import SubTaskSerializer
+from .pagination import SubTaskPagination
+
+
+class SubTaskListCreateView(generics.ListCreateAPIView):
+    queryset = Subtask.objects.all()
+    serializer_class = SubTaskSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['status', 'deadline']
+    search_fields = ['title', 'description']
+    ordering_fields = ['created_at']
+    ordering = ['created_at']
+    pagination_class = SubTaskPagination
+
+
+class SubTaskDetailUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Subtask.objects.all()
+    serializer_class = SubTaskSerializer
+
+
+
+
+
+########################### OLD CODE ###############################################
+
+
+"""
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from first_app.models.subtask import Subtask
 from first_app.serializers.sub_task_serializers import SubTaskSerializer
 from django.shortcuts import get_object_or_404
+
+
+
 
 
 class SubTaskListCreateView(APIView):
@@ -41,3 +75,4 @@ class SubTaskDetailUpdateDeleteView(APIView):
         subtask = self.get_object(pk)
         subtask.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+"""
