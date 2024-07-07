@@ -1,8 +1,14 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 from first_app.views.task_views import TaskListCreateView, TaskDetailUpdateDeleteView, TaskStatsView
 from first_app.views.subtask_views import SubTaskListCreateView, SubTaskDetailUpdateDeleteView
 from first_app.views.category_views import CategoryViewSet
+
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet, basename='category')
@@ -15,6 +21,9 @@ urlpatterns = [
     path('subtasks/', SubTaskListCreateView.as_view(), name='subtask-list-create'),
     path('subtasks/<int:pk>/', SubTaskDetailUpdateDeleteView.as_view(), name='subtask-detail-update-delete'),
     path('', include(router.urls)),
+
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 """
