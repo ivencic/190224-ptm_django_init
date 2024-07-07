@@ -6,7 +6,13 @@ from rest_framework_simplejwt.views import (
 )
 
 from first_app.views.task_views import TaskListCreateView, TaskDetailUpdateDeleteView, TaskStatsView
-from first_app.views.subtask_views import SubTaskListCreateView, SubTaskDetailUpdateDeleteView
+from first_app.views.subtask_views import (
+    SubTaskListView,
+    SubTaskCreateView,
+    SubTaskUpdateView,
+    SubTaskDeleteView,
+    SubTaskDetailView,
+)
 from first_app.views.category_views import CategoryViewSet
 
 
@@ -18,8 +24,13 @@ urlpatterns = [
     path('tasks/<int:pk>/', TaskDetailUpdateDeleteView.as_view(), name='task-detail-update-delete'),
     path('tasks/statistics/', TaskStatsView.as_view(), name='task-statistics'),
 
-    path('subtasks/', SubTaskListCreateView.as_view(), name='subtask-list-create'),
-    path('subtasks/<int:pk>/', SubTaskDetailUpdateDeleteView.as_view(), name='subtask-detail-update-delete'),
+    path('subtasks/', SubTaskListView.as_view(), name='subtask-list-view'),
+    path('subtasks/', SubTaskCreateView.as_view(), name='subtask-create-view'),
+    path('subtasks/', SubTaskUpdateView.as_view(), name='subtask-update-view'),
+    path('subtasks/<int:pk>/', SubTaskDetailView.as_view(), name='subtask-detail-view'),
+    path('subtasks/<int:pk>/', SubTaskDeleteView.as_view(), name='subtask-delete-view'),
+
+
     path('', include(router.urls)),
 
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

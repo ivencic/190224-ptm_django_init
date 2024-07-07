@@ -4,17 +4,43 @@ from django_filters.rest_framework import DjangoFilterBackend
 from first_app.models.subtask import Subtask
 from first_app.serializers.sub_task_serializers import SubTaskSerializer
 from first_app.pagination import GlobalPagination
+from first_app.permissions import IsAdmin, IsUser, IsGuest
 
 
-class SubTaskListCreateView(generics.ListCreateAPIView):
+class SubTaskCreateView(generics.CreateAPIView):
     queryset = Subtask.objects.all()
     serializer_class = SubTaskSerializer
+    permission_classes = [IsAdmin | IsUser]
+
+
+class SubTaskListView(generics.ListAPIView):
+    queryset = Subtask.objects.all()
+    serializer_class = SubTaskSerializer
+    permission_classes = [IsAdmin | IsUser | IsGuest]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['status', 'deadline']
     search_fields = ['title', 'description']
     ordering_fields = ['created_at']
     ordering = ['created_at']
     pagination_class = GlobalPagination
+
+
+class SubTaskDetailView(generics.RetrieveAPIView):
+    queryset = Subtask.objects.all()
+    serializer_class = SubTaskSerializer
+    permission_classes = [IsAdmin | IsUser | IsGuest]
+
+
+class SubTaskUpdateView(generics.UpdateAPIView):
+    queryset = Subtask.objects.all()
+    serializer_class = SubTaskSerializer
+    permission_classes = [IsAdmin | IsUser]
+
+
+class SubTaskDeleteView(generics.DestroyAPIView):
+    queryset = Subtask.objects.all()
+    serializer_class = SubTaskSerializer
+    permission_classes = [IsAdmin]
 
 
 class SubTaskDetailUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
