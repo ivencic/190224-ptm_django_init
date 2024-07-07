@@ -12,6 +12,9 @@ class SubTaskCreateView(generics.CreateAPIView):
     serializer_class = SubTaskSerializer
     permission_classes = [IsAdmin | IsUser]
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class SubTaskListView(generics.ListAPIView):
     queryset = Subtask.objects.all()

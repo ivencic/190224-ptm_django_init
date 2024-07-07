@@ -6,12 +6,16 @@ from first_app.models.task import Task
 
 
 class TaskSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = Task
-        fields = ['id', 'title', 'description', 'status', 'deadline']
+        fields = '__all__'
 
 
 class TaskCreateSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = Task
         fields = '__all__'

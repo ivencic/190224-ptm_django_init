@@ -29,6 +29,8 @@ class TaskListCreateView(generics.ListCreateAPIView):
     ordering = ['created_at']
     pagination_class = GlobalPagination
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class TaskDetailUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
